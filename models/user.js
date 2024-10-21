@@ -12,6 +12,13 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 })
+userSchema.set('toJSON', { //when using to json, deleted the hashed password from the returned object key, still saved in database. 
+    transform: (document,returnedObject) =>{ 
+        delete returnedObject.hashedPassword;
+    }
+    
+});
+
 
 const User = mongoose.model('User', userSchema)
 module.exports = User
